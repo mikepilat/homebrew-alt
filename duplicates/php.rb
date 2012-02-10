@@ -9,10 +9,10 @@ def postgres_installed?
 end
 
 class Php < Formula
-  url 'http://www.php.net/get/php-5.3.9.tar.bz2/from/this/mirror'
+  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
   homepage 'http://php.net/'
-  md5 'dd3288ed5c08cd61ac5bf619cb357521'
-  version '5.3.9'
+  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
+  version '5.3.10'
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
@@ -153,7 +153,7 @@ class Php < Formula
 
     system "./configure", *args
 
-    unless ARGV.include? '--without-apache'
+    unless ARGV.include? '--without-apache' or ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         "INSTALL_IT = $(mkinstalldirs) '$(INSTALL_ROOT)/usr/libexec/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='$(INSTALL_ROOT)/usr/libexec/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so",
